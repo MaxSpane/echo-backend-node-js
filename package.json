@@ -1,0 +1,59 @@
+{
+  "name": "echo-backend-node",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "local-db:refresh": "export NODE_ENV=test && babel-node server/db/migrations dropTables && babel-node server/db/migrations createTables && babel-node server/db/migrations migrateTables && babel-node server/db/seeder seedTables",
+    "local-test": "npm run local-db:refresh && npm run test",
+    "build": "rimraf build/ && babel ./ -d build/ --ignore \"./node_modules/,./coverage/,./.babelrc,./.nyc_output/,./package.json,./package-lock.json,./npm-debug.log,./.eslintrc.js,./README.md,./server/db/migrations.js,./server/db/queries.js,./server/db/seeder.js\"",
+    "start": "node build/app.js",
+    "dev": "nodemon app.js --exec babel-node --",
+    "heroku-postbuild": "babel-node server/db/migrations dropTables && babel-node server/db/migrations createTables && babel-node server/db/seeder seedTables"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaxSpane/echo-backend-node-js.git"
+  },
+  "author": "Mohammed Adetunji",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaxSpane/echo-backend-node-js/issues"
+  },
+  "homepage": "https://github.com/MaxSpane/echo-backend-node-js#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.3",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/register": "^7.0.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "eslint": "^5.14.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "make-runnable": "^1.3.6",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.10",
+    "nyc": "^13.3.0",
+    "rimraf": "^2.6.3"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.4",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.4.0",
+    "moment": "^2.24.0",
+    "npm": "^6.9.1",
+    "pg": "^7.8.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.43.0"
+  },
+  "engines": {
+    "node": "10.x",
+    "npm": "6.x"
+  }
+}
